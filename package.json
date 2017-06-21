@@ -1,10 +1,10 @@
 {
   "name": "fmrest",
-  "version": "0.0.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./bin/www",
-    "it": "gulp && node ./bin/www"
+  "version": "1.0.0",
+  "description": "A promise wrapper for filemakers data api.",
+  "main": "gulpfile.js",
+  "directories": {
+    "lib": "lib"
   },
   "dependencies": {
     "requestify": "^0.2.5"
@@ -13,5 +13,20 @@
     "gulp": "^3.9.1",
     "gulp-jasmine": "^2.4.2",
     "jasmine": "^2.6.0"
-  }
+  },
+  "scripts": {
+    "test": "jasmine"
+  },
+  "repository": {
+    "type": "git",
+    "url": "to_be_added"
+  },
+  "keywords": [
+    "filemaker",
+    "data",
+    "api",
+    "rest"
+  ],
+  "author": "Jacob Thomann",
+  "license": "ISC"
 }
