@@ -1,0 +1,17 @@
+{
+  "name": "fmrest",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "it": "gulp && node ./bin/www"
+  },
+  "dependencies": {
+    "requestify": "^0.2.5"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jasmine": "^2.4.2",
+    "jasmine": "^2.6.0"
+  }
+}
