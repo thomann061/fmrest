@@ -12,7 +12,9 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-jasmine": "^2.4.2",
-    "jasmine": "^2.6.0"
+    "gulp-jshint": "^2.0.4",
+    "jasmine": "^2.6.0",
+    "jshint": "^2.9.4"
   },
   "scripts": {
     "test": "jasmine"

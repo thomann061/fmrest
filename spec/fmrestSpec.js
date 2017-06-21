@@ -3,6 +3,7 @@ const Fmrest = require('../lib/fmrest.js');
 describe('fmrest', () => {
 
     let filemaker;
+    let token;
 
     beforeAll(() => {
 
@@ -20,7 +21,15 @@ describe('fmrest', () => {
         filemaker.login()
             .then(token => {
                 expect(token).toBeDefined();
-                console.log("Token: " + token);
+                done();
+            });
+    });
+
+    it('should logout', (done) => {
+
+        filemaker.logout()
+            .then(isLoggedOut => {
+                expect(isLoggedOut).toBe(true);
                 done();
             });
     });
