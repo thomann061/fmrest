@@ -1,4 +1,5 @@
 const Fmrest = require('../lib/fmrest.js');
+const Request = require('../lib/request.js');
 
 describe('fmrest', () => {
 
@@ -91,6 +92,46 @@ describe('fmrest', () => {
     it('should get all records', (done) => {
 
         filemaker.getAllRecords()
+            .then(records => {
+                expect(records).toBeDefined();
+                done();
+            })
+    });
+
+    it('should perform a find', (done) => {
+
+        let request = new Request();
+        request.where('name').is('=bill');
+
+        filemaker.find(request)
+            .then(records => {
+                expect(records).toBeDefined();
+                done();
+            })
+    });
+
+    it('should perform a find with multiple requests', (done) => {
+
+        let request = new Request();
+        request.where('name').is('=bill');
+
+        let request2 = new Request();
+        request2.where('name').is('=james');
+
+        filemaker.find([request, request2])
+            .then(records => {
+                expect(records).toBeDefined();
+                done();
+            })
+    });
+
+    it('should perform a find with omit request', (done) => {
+
+        let request = new Request().where('name').is('*');
+
+        let request2 = new Request().where('address').is('102*');
+
+        filemaker.find([request, request2.omit()])
             .then(records => {
                 expect(records).toBeDefined();
                 done();
