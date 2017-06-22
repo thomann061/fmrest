@@ -1,6 +1,7 @@
 const Fmrest = require('../lib/fmrest.js');
 const Request = require('../lib/request.js');
 const Sort = require('../lib/sort.js');
+const Global = require('../lib/global.js');
 
 describe('fmrest', () => {
 
@@ -195,6 +196,19 @@ describe('fmrest', () => {
             })
             .then(records => {
                 expect(records).toBeDefined();
+                done();
+            })
+    });
+
+    it('should set a global(s) parameter', (done) => {
+
+        let global1 = new Global('global1', 'aValue');
+        let global2 = new Global('global2', 'anotherValue');
+
+        filemaker
+            .setGlobals([global1, global2])
+            .then(isSet => {
+                expect(isSet).toEqual(true);
                 done();
             })
     });
