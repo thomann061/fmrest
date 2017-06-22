@@ -1,5 +1,6 @@
 const Fmrest = require('../lib/fmrest.js');
 const Request = require('../lib/request.js');
+const Sort = require('../lib/sort.js');
 
 describe('fmrest', () => {
 
@@ -103,7 +104,7 @@ describe('fmrest', () => {
         let request = new Request();
         request.where('name').is('=bill');
 
-        filemaker.find(request)
+        filemaker.find({requests: [request]})
             .then(records => {
                 expect(records).toBeDefined();
                 done();
@@ -118,7 +119,7 @@ describe('fmrest', () => {
         let request2 = new Request();
         request2.where('name').is('=james');
 
-        filemaker.find([request, request2])
+        filemaker.find({requests: [request, request2]})
             .then(records => {
                 expect(records).toBeDefined();
                 done();
@@ -131,7 +132,67 @@ describe('fmrest', () => {
 
         let request2 = new Request().where('address').is('102*');
 
-        filemaker.find([request, request2.omit()])
+        filemaker.find({requests: [request, request2.omit()]})
+            .then(records => {
+                expect(records).toBeDefined();
+                done();
+            })
+    });
+
+    it('should perform multiple finds with sort parameter', (done) => {
+
+        let request = new Request().where('name').is('*');
+
+        let request2 = new Request().where('address').is('102*');
+
+        let sort = new Sort('name', 'ascend');
+
+        filemaker
+            .find({
+                requests: [request, request2], 
+                sorts: [sort]
+            })
+            .then(records => {
+                expect(records).toBeDefined();
+                done();
+            })
+    });
+
+    it('should perform multiple finds with multiple sort parameters', (done) => {
+
+        let request = new Request().where('name').is('*');
+
+        let request2 = new Request().where('address').is('102*');
+
+        let sort = new Sort('name', 'ascend');
+
+        let sort2 = new Sort('address', 'descend');
+
+        filemaker
+            .find({
+                requests: [request, request2], 
+                sorts: [sort, sort2]
+            })
+            .then(records => {
+                expect(records).toBeDefined();
+                done();
+            })
+    });
+
+    it('should perform a find with all optional params', (done) => {
+
+        let request = new Request().where('name').is('*');
+
+        let sort = new Sort('name', 'ascend');
+
+        filemaker
+            .find({
+                requests: [request],
+                sorts: [sort],
+                offset: '1',
+                range: '10',
+                portal: ['portal1']
+            })
             .then(records => {
                 expect(records).toBeDefined();
                 done();
