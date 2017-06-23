@@ -1,6 +1,6 @@
 {
   "name": "fmrest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A promise wrapper for filemakers data api.",
   "main": "gulpfile.js",
   "directories": {
