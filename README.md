@@ -1,5 +1,6 @@
 # FMREST
 [![Build Status](https://travis-ci.org/thomann061/fmrest.svg?branch=master)](https://travis-ci.org/thomann061/fmrest)
+[![npm version](https://badge.fury.io/js/fmrest.svg)](https://badge.fury.io/js/fmrest)
 
 A javascript wrapper for Filemaker's Data API (REST API)
 
@@ -150,7 +151,7 @@ let sort2 = filemaker
 
 filemaker
     .find({
-        requests: [request, request2], 
+        requests: [request, request2],
         sorts: [sort, sort2]
     })
     .then(records => {
