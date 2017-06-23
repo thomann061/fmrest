@@ -1,5 +1,6 @@
-# Fmrest
+# FMREST
 [![Build Status](https://travis-ci.org/thomann061/fmrest.svg?branch=master)](https://travis-ci.org/thomann061/fmrest)
+
 A javascript wrapper for Filemaker's Data API (REST API)
 
 ## Get Started
@@ -11,7 +12,9 @@ You will need to install Filemaker Server 16 and enable the Data API.  To do my 
 ```javascript
 npm install fmrest
 
+
 const Fmrest = require('fmrest');
+
 
 // Set configuration
 const filemaker = new Fmrest({
@@ -32,6 +35,7 @@ filemaker
     .then(token => {
         console.log(token);
     });
+
 
 // Logout
 filemaker
@@ -57,12 +61,14 @@ filemaker
         console.log(id);
     });
 
+
 // Delete Record
 filemaker
     .deleteRecord(2) // supply with Filemaker's unique interal recordID
     .then(isDeleted => {
         console.log(isDeleted);
     })
+
 
 // Edit Record
 const values2 = {
@@ -77,12 +83,14 @@ filemaker
         console.log(isEdited);
     })
 
+
 // Get Record
 filemaker
     .getRecord(3)
     .then(record => {
         console.log(record);
     })
+
 
 // Get All Records
 filemaker
@@ -106,6 +114,7 @@ filemaker
         console.log(records);
     })
 
+
 // Find w/ multiple requests
 let request = filemaker
     .createRequest()
@@ -121,6 +130,7 @@ filemaker               // Append .omit() to make the request omit records
     .then(records => {
         console.log(records);
     })
+
 
 // Find w/ multiple requests and sorting
 let request = filemaker
@@ -146,6 +156,7 @@ filemaker
     .then(records => {
         console.log(records);
     })
+
 
 // Find w/ all optional parameters
 let request = filemaker
@@ -194,4 +205,5 @@ filemaker
 ### Resources
 
 [Filemaker Data API Guide](https://fmhelp.filemaker.com/docs/16/en/restapi/)
+
 [Better API Guide here if you have Filemaker Server 16 installed](http://localhost/fmi/rest/apidoc/)
