@@ -4,9 +4,33 @@
 
 A javascript wrapper for Filemaker's Data API (REST API)
 
-## Get Started
+## Getting Started
 
-You will need to install Filemaker Server 16 and enable the Data API.  To do my testing I disabled the https protocol on Filemaker's IIS server.  I have also supplied my testing file - db.fmp12.  Almost every function returns a Promise except createRequest, createGlobal and createSort.
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
+
+### Prerequisites
+
+You will need to install Filemaker Server 16 and enable the Data API.  To do my testing I disabled the https protocol on Filemaker's IIS server.  I have also supplied my testing file - db.fmp12.
+
+## Running the tests
+
+Run all tasks including tests:
+
+```javascript
+gulp
+```
+
+Run only tests:
+
+```javascript
+jasmine
+```
+
+Note: fmrestSpec.js is commented out, uncomment when you have a filemaker server 16 environment setup.
+
+## API Code Samples
+
+Almost every function returns a Promise except createRequest, createGlobal and createSort.
 
 ### Configuration
 
@@ -197,14 +221,22 @@ filemaker
     })
 ```
 
-### TODO
+## TODO
 
 - Add query parameters for getRecords and getAllRecords
 - Global fields were not actually "setting" for me
 - Add offset and range parameters for portals under Find (eg. offset.Portal1)
 
-### Resources
+## Resources
 
 [Filemaker Data API Guide](https://fmhelp.filemaker.com/docs/16/en/restapi/)
 
 [Better API Guide here if you have Filemaker Server 16 installed](http://localhost/fmi/rest/apidoc/)
+
+## Contributing / Code of Conduct
+
+Please read [CONTRIBUTING.md](https://github.com/thomann061/fmrest/blob/master/CONTRIBUTING.md) and [CODE_OF_CONDUCT.md](https://github.com/thomann061/fmrest/blob/master/CODE_OF_CONDUCT.md) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
