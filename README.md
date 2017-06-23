@@ -117,6 +117,20 @@ filemaker
     })
 
 
+// Get Record w/ Portal Data
+let portal1 = filemaker
+    .createPortal('portal1', 1, 2); // (portal name, offset, range)
+                                    // offset and range are optional
+let portal2 = filemaker
+    .createPortal('portal2', 1, 2);
+
+filemaker
+    .getRecord(3, [portal1, portal2])
+    .then(record => {
+        console.log(record);
+    });
+
+
 // Get All Records
 filemaker
     .getAllRecords()

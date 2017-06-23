@@ -99,15 +99,15 @@
 
 //     it('should get a record with portal data as well', (done) => {
 
-//         let portal1 = filemaker.createPortal('portal1', 1, 2);
+        // let portal1 = filemaker.createPortal('portal1', 1, 2);
 
-//         let portal2 = filemaker.createPortal('portal2', 1, 2);
+        // let portal2 = filemaker.createPortal('portal2', 1, 2);
 
-//         filemaker.getRecord(3, [portal1, portal2])
-//             .then(record => {
-//                 expect(record).toBeDefined();
-//                 done();
-//             });
+        // filemaker.getRecord(3, [portal1, portal2])
+        //     .then(record => {
+        //         expect(record).toBeDefined();
+        //         done();
+        //     });
 //     });
 
 //     it('should get all records', (done) => {
