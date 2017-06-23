@@ -1,4 +1,5 @@
 # Fmrest
+[![Build Status](https://travis-ci.org/thomann061/fmrest.svg?branch=master)](https://travis-ci.org/thomann061/fmrest)
 A javascript wrapper for Filemaker's Data API (REST API)
 
 ## Get Started
