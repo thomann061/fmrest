@@ -7,6 +7,7 @@
 // const Request = require('../lib/request.js');
 // const Sort = require('../lib/sort.js');
 // const Global = require('../lib/global.js');
+// const Portal = require('../lib/portal.js');
 
 // describe('fmrest', () => {
 
@@ -63,29 +64,29 @@
 //             })
 //     });
 
-// it('should delete a record', (done) => {
+//     it('should delete a record', (done) => {
 
-//     filemaker.deleteRecord(2)
-//         .then(isDeleted => {
-//             expect(isDeleted).toBe(true);
-//             done();
-//         })
-// });
+//         filemaker.deleteRecord(2)
+//             .then(isDeleted => {
+//                 expect(isDeleted).toBe(true);
+//                 done();
+//             })
+//     });
 
-// it('should edit a record', (done) => {
+//     it('should edit a record', (done) => {
 
-//     const values = {
-//         "name": "James",
-//         "address": "105 lake dr",
-//         "date": "6/22/2017"
-//     }
+//         const values = {
+//             "name": "James",
+//             "address": "105 lake dr",
+//             "date": "6/22/2017"
+//         }
 
-//     filemaker.editRecord(2, values)
-//         .then(isEdited => {
-//             expect(isEdited).toBe(true);
-//             done();
-//         })
-// });
+//         filemaker.editRecord(2, values)
+//             .then(isEdited => {
+//                 expect(isEdited).toBe(true);
+//                 done();
+//             })
+//     });
 
 //     it('should get a record', (done) => {
 
@@ -94,6 +95,19 @@
 //                 expect(record).toBeDefined();
 //                 done();
 //             })
+//     });
+
+//     it('should get a record with portal data as well', (done) => {
+
+//         let portal1 = filemaker.createPortal('portal1', 1, 2);
+
+//         let portal2 = filemaker.createPortal('portal2', 1, 2);
+
+//         filemaker.getRecord(3, [portal1, portal2])
+//             .then(record => {
+//                 expect(record).toBeDefined();
+//                 done();
+//             });
 //     });
 
 //     it('should get all records', (done) => {
@@ -151,7 +165,7 @@
 
 //         let request2 = filemaker.createRequest().where('address').is('102*');
 
-//         let sort = new Sort('name', 'ascend');
+//         let sort = filemaker.createSort('name', 'ascend');
 
 //         filemaker
 //             .find({
