@@ -17,6 +17,7 @@ You will need to install Filemaker Server 16 and enable the Data API.  To do my 
 Run all tasks including tests:
 
 ```javascript
+npm i gulp-cli -g
 gulp
 ```
 
@@ -237,9 +238,10 @@ filemaker
 
 ## TODO
 
-- Add query parameters for getRecords and getAllRecords
-- Global fields were not actually "setting" for me
-- Add offset and range parameters for portals under Find (eg. offset.Portal1)
+- [x] Add ability to get portal data with getRecord
+- [ ] Add ability to get portal data with getAllRecords
+- [ ] Global fields were not actually "setting" for me
+- [ ] Add offset and range parameters for portals under Find (eg. offset.Portal1)
 
 ## Resources
 
