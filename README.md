@@ -218,20 +218,19 @@ filemaker
 
 
 // Find w/ all optional parameters
-let request = filemaker
-    .createRequest()
-    .where('name').is('*');
+let request = filemaker.createRequest().where('name').is('*');
 
-let sort = filemaker
-    .createSort('name', 'ascend');
+let sort = filemaker.createSort('name', 'ascend');
+
+let portal1 = filemaker.createPortal('portal1', 1, 1);
 
 filemaker
     .find({
         requests: [request],
         sorts: [sort],      // optional
-        offset: '1',        // optional
-        range: '10',        // optional
-        portal: ['portal1'] // optional
+        offset: 2,          // optional
+        range: 10,          // optional
+        portals: [portal1]  // optional
     })
     .then(records => {
         console.log(records);
@@ -260,7 +259,7 @@ filemaker
 - [x] Add ability to get portal data with getRecord
 - [x] Add ability to get portal data with getAllRecords
 - [ ] Global fields were not actually "setting" for me
-- [ ] Add offset and range parameters for portals under Find (eg. offset.Portal1)
+- [x] Add offset and range parameters for portals under Find (eg. offset.Portal1)
 
 ## Resources
 
