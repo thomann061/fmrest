@@ -138,6 +138,25 @@ filemaker
     .then(records => {
         console.log(records);
     })
+
+
+// Get All Records w/ Portal Data, sorting, offset and range
+let portal1 = filemaker
+    .createPortal('portal1');
+
+let sort1 = filemaker
+    .createSort('name', 'ascend');
+
+filemaker
+    .getAllRecords({
+        offset: 1,
+        range: 10,
+        sorts: [sort1],
+        portals: [portal1]
+    })
+    .then(records => {
+        console.log(records);
+    });
 ```
 
 ### Finds
@@ -239,7 +258,7 @@ filemaker
 ## TODO
 
 - [x] Add ability to get portal data with getRecord
-- [ ] Add ability to get portal data with getAllRecords
+- [x] Add ability to get portal data with getAllRecords
 - [ ] Global fields were not actually "setting" for me
 - [ ] Add offset and range parameters for portals under Find (eg. offset.Portal1)
 

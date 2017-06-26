@@ -88,36 +88,56 @@
 //             })
 //     });
 
-//     it('should get a record', (done) => {
+// it('should get a record', (done) => {
 
-//         filemaker.getRecord(18)
-//             .then(record => {
-//                 expect(record).toBeDefined();
-//                 done();
-//             })
-//     });
+//     filemaker.getRecord(18)
+//         .then(record => {
+//             expect(record).toBeDefined();
+//             done();
+//         })
+// });
 
-//     it('should get a record with portal data as well', (done) => {
+// it('should get a record with portal data as well', (done) => {
 
-        // let portal1 = filemaker.createPortal('portal1', 1, 2);
+//     let portal1 = filemaker.createPortal('portal1', 1, 2);
 
-        // let portal2 = filemaker.createPortal('portal2', 1, 2);
+//     let portal2 = filemaker.createPortal('portal2', 1, 2);
 
-        // filemaker.getRecord(3, [portal1, portal2])
-        //     .then(record => {
-        //         expect(record).toBeDefined();
-        //         done();
-        //     });
-//     });
+//     filemaker.getRecord(3, [portal1, portal2])
+//         .then(record => {
+//             expect(record).toBeDefined();
+//             done();
+//         });
+// });
 
-//     it('should get all records', (done) => {
+// it('should get all records', (done) => {
 
-//         filemaker.getAllRecords()
-//             .then(records => {
-//                 expect(records).toBeDefined();
-//                 done();
-//             })
-//     });
+//     filemaker.getAllRecords()
+//         .then(records => {
+//             expect(records).toBeDefined();
+//             done();
+//         })
+// });
+
+// it('should get all records with optional values', (done) => {
+
+//     let portal1 = filemaker.createPortal('portal1');
+//     let portal2 = filemaker.createPortal('portal2');
+//     let sort1 = filemaker.createSort('name', 'ascend');
+//     let sort2 = filemaker.createSort('address', 'ascend');
+
+//     filemaker
+//         .getAllRecords({
+//             offset: 1,
+//             range: 10,
+//             sorts: [sort1, sort2],
+//             portals: [portal1, portal2]
+//         })
+//         .then(records => {
+//             expect(records).toBeDefined();
+//             done();
+//         })
+// });
 
 //     it('should perform a find', (done) => {
 
