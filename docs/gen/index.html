@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Documentation Index</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cerulean.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Documentation</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="AuthAPI.html">AuthAPI</a></li><li><a href="FindAPI.html">FindAPI</a></li><li><a href="Fmrest.html">Fmrest</a></li><li><a href="Global_.html">Global</a></li><li><a href="GlobalAPI.html">GlobalAPI</a></li><li><a href="Portal.html">Portal</a></li><li><a href="RecordAPI.html">RecordAPI</a></li><li><a href="Request.html">Request</a></li><li><a href="Sort.html">Sort</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-8">
+	
+		<div id="main">
+			
+
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+	
+	
+
+
+
+
+
+    <section class="readme-section">
+        <article><h1>FMREST</h1><p><a href="https://travis-ci.org/thomann061/fmrest"><img src="https://travis-ci.org/thomann061/fmrest.svg?branch=master" alt="Build Status"></a>
+<a href="https://badge.fury.io/js/fmrest"><img src="https://badge.fury.io/js/fmrest.svg" alt="npm version"></a></p>
+<p>A javascript wrapper for Filemaker's Data API (REST API)</p>
+<h2>Getting Started</h2><p>These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.</p>
+<h3>Prerequisites</h3><p>You will need to install Filemaker Server 16 and enable the Data API.  To do my testing I disabled the https protocol on Filemaker's IIS server.  I have also supplied my testing file - db.fmp12.</p>
+<h2>Running the tests</h2><p>Run all tasks including tests:</p>
+<pre class="prettyprint source lang-javascript"><code>npm i gulp-cli -g
+gulp</code></pre><p>Run only tests:</p>
+<pre class="prettyprint source lang-javascript"><code>jasmine</code></pre><p>Note: fmrestSpec.js is commented out, uncomment when you have a filemaker server 16 environment setup.</p>
+<h2>API Code Samples</h2><p>Almost every function returns a Promise except createRequest, createGlobal and createSort.</p>
+<h3>Configuration</h3><pre class="prettyprint source lang-javascript"><code>npm install fmrest
+
+
+const Fmrest = require('fmrest');
+
+
+// Set configuration
+const filemaker = new Fmrest({
+    user: &quot;admin&quot;,
+    password: &quot;admin&quot;,
+    host: &quot;http://localhost&quot;,
+    solution: &quot;db&quot;,
+    layout: &quot;db&quot;
+});</code></pre><h3>Authentication</h3><pre class="prettyprint source lang-javascript"><code>// Login
+filemaker
+    .login()
+    .then(token => {
+        console.log(token);
+    });
+
+
+// Logout
+filemaker
+    .logout()
+    .then(isLoggedOut => {
+        console.log(isLoggedOut);
+    });</code></pre><h3>Records</h3><pre class="prettyprint source lang-javascript"><code>// Create Record
+const values = {
+    &quot;name&quot;: &quot;Bill&quot;,
+    &quot;address&quot;: &quot;102 park ave&quot;,
+    &quot;date&quot;: &quot;6/21/2017&quot;
+}
+
+filemaker
+    .createRecord(values) // if empty, creates record w/ default values
+    .then(id => {
+        console.log(id);
+    });
+
+
+// Delete Record
+filemaker
+    .deleteRecord(2) // supply with Filemaker's unique interal recordID
+    .then(isDeleted => {
+        console.log(isDeleted);
+    })
+
+
+// Edit Record
+const values2 = {
+    &quot;name&quot;: &quot;James&quot;,
+    &quot;address&quot;: &quot;105 lake dr&quot;,
+    &quot;date&quot;: &quot;6/22/2017&quot;
+}
+
+filemaker
+    .editRecord(2, values2)
+    .then(isEdited => {
+        console.log(isEdited);
+    })
+
+
+// Get Record
+filemaker
+    .getRecord(3)
+    .then(record => {
+        console.log(record);
+    })
+
+
+// Get Record w/ Portal Data
+let portal1 = filemaker
+    .createPortal('portal1', 1, 2); // (portal name, offset, range)
+                                    // offset and range are optional
+let portal2 = filemaker
+    .createPortal('portal2', 1, 2);
+
+filemaker
+    .getRecord(3, [portal1, portal2])
+    .then(record => {
+        console.log(record);
+    });
+
+
+// Get All Records
+filemaker
+    .getAllRecords()
+    .then(records => {
+        console.log(records);
+    })
+
+
+// Get All Records w/ Portal Data, sorting, offset and range
+let portal1 = filemaker
+    .createPortal('portal1');
+
+let sort1 = filemaker
+    .createSort('name', 'ascend');
+
+filemaker
+    .getAllRecords({
+        offset: 1,
+        range: 10,
+        sorts: [sort1],
+        portals: [portal1]
+    })
+    .then(records => {
+        console.log(records);
+    });</code></pre><h3>Finds</h3><pre class="prettyprint source lang-javascript"><code>// Find Records
+let request = filemaker
+    .createRequest()
+    .where('name').is('=bill');
+
+filemaker
+    .find({requests: [request]})
+    .then(records => {
+        console.log(records);
+    })
+
+
+// Find w/ multiple requests
+let request = filemaker
+    .createRequest()
+    .where('name').is('=bill')
+    .where('address').is('102*');
+
+let request2 = filemaker
+    .createRequest()
+    .where('name').is('=james');
+
+filemaker               // Append .omit() to make the request omit records
+    .find({requests: [request.omit(), request2]})
+    .then(records => {
+        console.log(records);
+    })
+
+
+// Find w/ multiple requests and sorting
+let request = filemaker
+    .createRequest()
+    .where('name').is('*');
+
+let request2 = filemaker
+    .createRequest()
+    .where('address')
+    .is('102*');
+
+let sort = filemaker
+    .createSort('name', 'ascend');
+
+let sort2 = filemaker
+    .createSort('address', 'descend');
+
+filemaker
+    .find({
+        requests: [request, request2],
+        sorts: [sort, sort2]
+    })
+    .then(records => {
+        console.log(records);
+    })
+
+
+// Find w/ all optional parameters
+let request = filemaker.createRequest().where('name').is('*');
+
+let sort = filemaker.createSort('name', 'ascend');
+
+let portal1 = filemaker.createPortal('portal1', 1, 1);
+
+filemaker
+    .find({
+        requests: [request],
+        sorts: [sort],      // optional
+        offset: 2,          // optional
+        range: 10,          // optional
+        portals: [portal1]  // optional
+    })
+    .then(records => {
+        console.log(records);
+    })</code></pre><h3>Set Global Fields</h3><pre class="prettyprint source lang-javascript"><code>// Set Global Fields
+let global1 = filemaker
+    .createGlobal('global1', 'aValue');
+
+let global2 = filemaker
+    .createGlobal('global2', 'anotherValue');
+
+filemaker
+    .setGlobals([global1, global2])
+    .then(isSet => {
+        console.log(isSet);
+    })</code></pre><h2>TODO</h2><ul>
+<li>[x] Add ability to get portal data with getRecord</li>
+<li>[x] Add ability to get portal data with getAllRecords</li>
+<li>[ ] Global fields were not actually &quot;setting&quot; for me</li>
+<li>[x] Add offset and range parameters for portals under Find (eg. offset.Portal1)</li>
+</ul>
+<h2>Resources</h2><p><a href="https://fmhelp.filemaker.com/docs/16/en/restapi/">Filemaker Data API Guide</a></p>
+<p><a href="http://localhost/fmi/rest/apidoc/">Better API Guide here if you have Filemaker Server 16 installed</a></p>
+<h2>Contributing / Code of Conduct</h2><p>Please read <a href="https://github.com/thomann061/fmrest/blob/master/CONTRIBUTING.md">CONTRIBUTING.md</a> and <a href="https://github.com/thomann061/fmrest/blob/master/CODE_OF_CONDUCT.md">CODE_OF_CONDUCT.md</a> for details on our code of conduct, and the process for submitting pull requests to us.</p>
+<h2>License</h2><p>This project is licensed under the MIT License - see the <a href="LICENSE">LICENSE</a> file for details</p></article>
+    </section>
+
+
+
+
+
+
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
+	
+		on June 27th 2017, 11:41:08 am
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : true,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>

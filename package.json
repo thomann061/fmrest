@@ -12,6 +12,7 @@
   "devDependencies": {
     "gulp": "^3.9.1",
     "gulp-jasmine": "^2.4.2",
+    "gulp-jsdoc3": "^1.0.1",
     "gulp-jshint": "^2.0.4",
     "jasmine": "^2.6.0",
     "jshint": "^2.9.4"

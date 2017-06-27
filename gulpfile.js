@@ -1,7 +1,8 @@
 const gulp = require('gulp');
 const jasmine = require('gulp-jasmine');
 const jshint = require('gulp-jshint');
- 
+const jsdoc = require('gulp-jsdoc3');
+
 gulp.task('test', () =>
     gulp.src('spec/*.js')
         // gulp-jasmine works on filepaths so you can't have any plugins before it 
@@ -14,4 +15,9 @@ gulp.task('lint', function() {
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('default', ['lint', 'test']);
+gulp.task('doc', function (cb) {
+    gulp.src(['README.md', './lib/**/*.js'], {read: false})
+        .pipe(jsdoc(cb));
+});
+
+gulp.task('default', ['lint', 'test', 'doc']);
