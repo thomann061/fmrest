@@ -1,24 +1,43 @@
 # Contributing
 
-When contributing to this repository, please first discuss the change you wish to make via issue,
-email, or any other method with the owners of this repository before making a change.
+We want to make contributing to this project as easy and transparent as
+possible. Hopefully this document makes the process for contributing clear and
+answers any questions you may have. If not, feel free to open an
+[Issue](https://github.com/thomann061/fmrest/issues).
 
-Please note we have a code of conduct, please follow it in all your interactions with the project.
+## Issues
 
-## Pull Request Process
+We use GitHub issues to track public bugs and requests. Please ensure your bug
+description is clear and has sufficient instructions to be able to reproduce the
+issue.
 
-1. Ensure any install or build dependencies are removed before the end of the layer when doing a
-   build.
-2. Update the README.md with details of changes to the interface, this includes new environment
-   variables, exposed ports, useful file locations and container parameters.
-3. Increase the version numbers in any examples files and the README.md to the new version that this
-   Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
-4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you
-   do not have permission to do that, you may request the second reviewer to merge it for you.
+## Pull Requests
 
-## Attribution
+All active development of FMREST happens on GitHub. We actively welcome
+your [pull requests](https://help.github.com/articles/creating-a-pull-request).
 
-This Code of Conduct is adapted from the [Contributor Covenant][homepage], version 1.4, available at [http://contributor-covenant.org/version/1/4][version]
+### Getting Started
 
-[homepage]: http://contributor-covenant.org
-[version]: http://contributor-covenant.org/version/1/4/
+1. Fork this repo by using the "Fork" button in the upper-right
+
+2. Check out your fork
+
+   ```sh
+   git clone git@github.com:yournamehere/fmrest.git
+   ```
+
+3. Install or Update all dependencies
+
+   ```sh
+   npm install
+   ```
+
+4. Get coding! If you've added code, add tests. If you've changed APIs, update
+   any relevant documentation or tests. Ensure your work is committed within a
+   feature branch.
+
+5. Ensure all linting and tests pass with gulp
+
+   ```sh
+   gulp
+   ```

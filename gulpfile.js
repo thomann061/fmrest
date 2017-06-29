@@ -20,4 +20,4 @@ gulp.task('doc', function (cb) {
         .pipe(jsdoc(cb));
 });
 
-gulp.task('default', ['lint', 'test', 'doc']);
+gulp.task('default', ['lint', 'test']);
