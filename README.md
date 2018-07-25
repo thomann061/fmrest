@@ -14,7 +14,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You will need to install Filemaker Server 16 and enable the Data API.  To do my testing I disabled the https protocol on Filemaker's IIS server.  I have also supplied my testing file - db.fmp12.
+You will need to install Filemaker Server 17 and enable the Data API.  There is plenty of online documentation describing how to do this.  To do my testing I modified some rules to not require https on Microsoft's IIS server.  I have also supplied my testing file - db.fmp12.
 
 ## Running the tests
 
@@ -31,7 +31,7 @@ Run only tests:
 jasmine
 ```
 
-Note: fmrestSpec.js is commented out, uncomment when you have a filemaker server 16 environment setup.
+Note: fmrestSpec.js is commented out; uncomment it when you have a Filemaker Server 17 setup.
 
 ## API Code Samples
 
@@ -62,16 +62,16 @@ const filemaker = new Fmrest({
 // Login
 filemaker
     .login()
-    .then(token => {
-        console.log(token);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     });
 
 
 // Logout
 filemaker
     .logout()
-    .then(isLoggedOut => {
-        console.log(isLoggedOut);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     });
 ```
 
@@ -87,16 +87,16 @@ const values = {
 
 filemaker
     .createRecord(values) // if empty, creates record w/ default values
-    .then(id => {
-        console.log(id);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     });
 
 
 // Delete Record
 filemaker
     .deleteRecord(2) // supply with Filemaker's unique interal recordID
-    .then(isDeleted => {
-        console.log(isDeleted);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     })
 
 
@@ -109,16 +109,16 @@ const values2 = {
 
 filemaker
     .editRecord(2, values2)
-    .then(isEdited => {
-        console.log(isEdited);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     })
 
 
 // Get Record
 filemaker
     .getRecord(3)
-    .then(record => {
-        console.log(record);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     })
 
 
@@ -131,16 +131,16 @@ let portal2 = filemaker
 
 filemaker
     .getRecord(3, [portal1, portal2])
-    .then(record => {
-        console.log(record);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     });
 
 
 // Get All Records
 filemaker
     .getAllRecords()
-    .then(records => {
-        console.log(records);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     })
 
 
@@ -158,8 +158,8 @@ filemaker
         sorts: [sort1],
         portals: [portal1]
     })
-    .then(records => {
-        console.log(records);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     });
 ```
 
@@ -173,8 +173,8 @@ let request = filemaker
 
 filemaker
     .find({requests: [request]})
-    .then(records => {
-        console.log(records);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     })
 
 
@@ -190,8 +190,8 @@ let request2 = filemaker
 
 filemaker               // Append .omit() to make the request omit records
     .find({requests: [request.omit(), request2]})
-    .then(records => {
-        console.log(records);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     })
 
 
@@ -216,8 +216,8 @@ filemaker
         requests: [request, request2],
         sorts: [sort, sort2]
     })
-    .then(records => {
-        console.log(records);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     })
 
 
@@ -236,8 +236,8 @@ filemaker
         range: 10,          // optional
         portals: [portal1]  // optional
     })
-    .then(records => {
-        console.log(records);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     })
 ```
 
@@ -246,30 +246,30 @@ filemaker
 ```javascript
 // Set Global Fields
 let global1 = filemaker
-    .createGlobal('global1', 'aValue');
+    .createGlobal('db::global1', 'aValue');
 
 let global2 = filemaker
-    .createGlobal('global2', 'anotherValue');
+    .createGlobal('db::global2', 'anotherValue');
 
 filemaker
     .setGlobals([global1, global2])
-    .then(isSet => {
-        console.log(isSet);
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
     })
 ```
 
 ## TODO
 
-- [x] Add ability to get portal data with getRecord
-- [x] Add ability to get portal data with getAllRecords
-- [ ] Global fields were not actually "setting" for me
-- [x] Add offset and range parameters for portals under Find (eg. offset.Portal1)
+- [ ] Add support for OAuth
+- [ ] Add support for Container Data
+- [ ] Global fields are still not working (help :)
+- [ ] Add script query parameters to Records
 
 ## Resources
 
-[Filemaker Data API Guide](https://fmhelp.filemaker.com/docs/16/en/restapi/)
+[Filemaker Data 17 API Guide](https://fmhelp.filemaker.com/docs/17/en/dataapi/index.html)
 
-[Better API Guide here if you have Filemaker Server 16 installed](http://localhost/fmi/rest/apidoc/)
+[Better API Guide here if you have Filemaker Server 17 installed](https://localhost/fmi/data/apidoc/)
 
 ## Contributing / Code of Conduct
 
