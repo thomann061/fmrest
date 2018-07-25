@@ -4,6 +4,10 @@
 
 A javascript wrapper for Filemaker's Data API (REST API)
 
+This API was developed for Filemaker 16.
+
+Plans for Filemaker 17 Data API coming soon.
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.

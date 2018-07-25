@@ -3,255 +3,332 @@
  * Use these tests in your own environment.
  */
 
-// const Fmrest = require('../lib/fmrest.js');
-// const Request = require('../lib/request.js');
-// const Sort = require('../lib/sort.js');
-// const Global = require('../lib/global.js');
-// const Portal = require('../lib/portal.js');
+const Fmrest = require('../lib/fmrest.js');
 
-// describe('fmrest', () => {
+describe('fmrest', () => {
 
-//     const filemaker = new Fmrest({
-//         user: "admin",
-//         password: "admin",
-//         host: "http://localhost",
-//         solution: "db",
-//         layout: "db"
-//     });
+    const filemaker = new Fmrest({
+        user: "admin",
+        password: "admin",
+        host: "http://localhost",
+        database: "db",
+        layout: "db"
+    });
 
-//     beforeAll((done) => {
+    beforeAll( async () => {
 
-//         //login
-//         filemaker.login()
-//             .then(token => {
-//                 expect(token).toBeDefined();
-//                 done();
-//             });
+        //login
+        await filemaker.login()
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { token } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(token).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            });
+    });
 
-//     });
-
-//     afterAll((done) => {
+    afterAll( async () => {
         
-//         //logout
-//         filemaker.logout()
-//             .then(isLoggedOut => {
-//                 expect(isLoggedOut).toBe(true);
-//                 done();
-//             });
-//     });
+        //logout
+        await filemaker.logout()
+            .then(body => {
+                let { messages } = body;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                //console.log(JSON.stringify(body, null, 3));
+            });
+    });
 
-//     it('should create a record with default values', (done) => {
+    it('should create a record with default values', async () => {
 
-//         filemaker.createRecord()
-//             .then(id => {
-//                 expect(id).toBeDefined();
-//                 done();
-//             });
-//     });
+        await filemaker.createRecord()
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { recordId } = response;
+                let { modId } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(recordId).toBeDefined();
+                expect(modId).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            });
+    });
 
-//     it('should create a record with specified values', (done) => {
+    it('should create a record with specified values', async () => {
 
-//         const values = {
-//             "name": "Bill",
-//             "address": "102 park ave",
-//             "date": "6/21/2017"
-//         }
+        const values = {
+            "name": "Bill",
+            "address": "102 park ave",
+            "date": "6/21/2017"
+        }
 
-//         filemaker.createRecord(values)
-//             .then(id => {
-//                 expect(id).toBeDefined();
-//                 done();
-//             })
-//     });
+        await filemaker.createRecord(values)
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { recordId } = response;
+                let { modId } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(recordId).toBeDefined();
+                expect(modId).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should delete a record', (done) => {
+    it('should delete a record', async () => {
 
-//         filemaker.deleteRecord(2)
-//             .then(isDeleted => {
-//                 expect(isDeleted).toBe(true);
-//                 done();
-//             })
-//     });
+        await filemaker.deleteRecord(54)
+            .then(body => {
+                let { messages } = body;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should edit a record', (done) => {
+    it('should edit a record', async () => {
 
-//         const values = {
-//             "name": "James",
-//             "address": "105 lake dr",
-//             "date": "6/22/2017"
-//         }
+        const values = {
+            "name": "James",
+            "address": "105 lake dr",
+            "date": "6/22/2017"
+        }
 
-//         filemaker.editRecord(2, values)
-//             .then(isEdited => {
-//                 expect(isEdited).toBe(true);
-//                 done();
-//             })
-//     });
+        await filemaker.editRecord(3, values)
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { modId } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(modId).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should get a record', (done) => {
+    it('should get a record', async () => {
 
-//         filemaker.getRecord(18)
-//             .then(record => {
-//                 expect(record).toBeDefined();
-//                 done();
-//             })
-//     });
+        await filemaker.getRecord(3)
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { data } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(data).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should get a record with portal data as well', (done) => {
+    it('should get a record with portal data as well', async () => {
 
-//         let portal1 = filemaker.createPortal('portal1', 1, 2);
+        let portal1 = filemaker.createPortal('portal1', 1, 2);
 
-//         let portal2 = filemaker.createPortal('portal2', 1, 2);
+        let portal2 = filemaker.createPortal('portal2', 1, 2);
 
-//         filemaker.getRecord(3, [portal1, portal2])
-//             .then(record => {
-//                 expect(record).toBeDefined();
-//                 done();
-//             });
-//     });
+        await filemaker.getRecord(3, [portal1, portal2])
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { data } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(data).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            });
+    });
 
-//     it('should get all records', (done) => {
+    it('should get all records', async () => {
 
-//         filemaker.getAllRecords()
-//             .then(records => {
-//                 expect(records).toBeDefined();
-//                 done();
-//             })
-//     });
+        await filemaker.getAllRecords()
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { data } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(data).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should get all records with optional values', (done) => {
+    it('should get all records with optional values', async () => {
 
-//         let portal1 = filemaker.createPortal('portal1');
-//         let portal2 = filemaker.createPortal('portal2');
-//         let sort1 = filemaker.createSort('name', 'ascend');
-//         let sort2 = filemaker.createSort('address', 'ascend');
+        let portal1 = filemaker.createPortal('portal1');
+        let portal2 = filemaker.createPortal('portal2');
+        let sort1 = filemaker.createSort('name', 'ascend');
+        let sort2 = filemaker.createSort('address', 'ascend');
 
-//         filemaker
-//             .getAllRecords({
-//                 offset: 1,
-//                 range: 10,
-//                 sorts: [sort1, sort2],
-//                 portals: [portal1, portal2]
-//             })
-//             .then(records => {
-//                 expect(records).toBeDefined();
-//                 done();
-//             })
-//     });
+        await filemaker
+            .getAllRecords({
+                offset: 1,
+                range: 10,
+                sorts: [sort1, sort2],
+                portals: [portal1, portal2]
+            })
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { data } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(data).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should perform a find', (done) => {
+    it('should perform a find', async () => {
 
-//         let request = filemaker.createRequest();
-//         request.where('name').is('=bill');
+        let request = filemaker.createRequest();
+        request.where('name').is('=bill');
 
-//         filemaker.find({requests: [request]})
-//             .then(records => {
-//                 expect(records).toBeDefined();
-//                 done();
-//             })
-//     });
+        await filemaker.find({requests: [request]})
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { data } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(data).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should perform a find with multiple requests', (done) => {
+    it('should perform a find with multiple requests', async () => {
 
-//         let request = filemaker.createRequest();
-//         request.where('name').is('=bill');
+        let request = filemaker.createRequest();
+        request.where('name').is('=bill');
 
-//         let request2 = filemaker.createRequest();
-//         request2.where('name').is('=james');
+        let request2 = filemaker.createRequest();
+        request2.where('name').is('=james');
 
-//         filemaker.find({requests: [request, request2]})
-//             .then(records => {
-//                 expect(records).toBeDefined();
-//                 done();
-//             })
-//     });
+        await filemaker.find({requests: [request, request2]})
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { data } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(data).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should perform a find with omit request', (done) => {
+    it('should perform a find with omit request', async () => {
 
-//         let request = filemaker.createRequest().where('name').is('*');
+        let request = filemaker.createRequest().where('name').is('*');
 
-//         let request2 = filemaker.createRequest().where('address').is('102*');
+        let request2 = filemaker.createRequest().where('address').is('102*');
 
-//         filemaker.find({requests: [request, request2.omit()]})
-//             .then(records => {
-//                 expect(records).toBeDefined();
-//                 done();
-//             })
-//     });
+        await filemaker.find({requests: [request, request2.omit()]})
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { data } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(data).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should perform multiple finds with sort parameter', (done) => {
+    it('should perform multiple finds with sort parameter', async () => {
 
-//         let request = filemaker.createRequest().where('name').is('*');
+        let request = filemaker.createRequest().where('name').is('*');
 
-//         let request2 = filemaker.createRequest().where('address').is('102*');
+        let request2 = filemaker.createRequest().where('address').is('102*');
 
-//         let sort = filemaker.createSort('name', 'ascend');
+        let sort = filemaker.createSort('name', 'ascend');
 
-//         filemaker
-//             .find({
-//                 requests: [request, request2], 
-//                 sorts: [sort]
-//             })
-//             .then(records => {
-//                 expect(records).toBeDefined();
-//                 done();
-//             })
-//     });
+        await filemaker
+            .find({
+                requests: [request, request2], 
+                sorts: [sort]
+            })
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { data } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(data).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should perform multiple finds with multiple sort parameters', (done) => {
+    it('should perform multiple finds with multiple sort parameters', async () => {
 
-//         let request = filemaker.createRequest().where('name').is('*');
+        let request = filemaker.createRequest().where('name').is('*');
 
-//         let request2 = filemaker.createRequest().where('address').is('102*');
+        let request2 = filemaker.createRequest().where('address').is('102*');
 
-//         let sort = filemaker.createSort('name', 'ascend');
+        let sort = filemaker.createSort('name', 'ascend');
 
-//         let sort2 = filemaker.createSort('address', 'descend');
+        let sort2 = filemaker.createSort('address', 'descend');
 
-//         filemaker
-//             .find({
-//                 requests: [request, request2], 
-//                 sorts: [sort, sort2]
-//             })
-//             .then(records => {
-//                 expect(records).toBeDefined();
-//                 done();
-//             })
-//     });
+        await filemaker
+            .find({
+                requests: [request, request2], 
+                sorts: [sort, sort2]
+            })
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { data } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(data).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should perform a find with all optional params', (done) => {
+    it('should perform a find with all optional params', async () => {
 
-//         let request = filemaker.createRequest().where('name').is('*');
+        let request = filemaker.createRequest().where('name').is('*');
 
-//         let sort = filemaker.createSort('name', 'ascend');
+        let sort = filemaker.createSort('name', 'ascend');
 
-//         let portal1 = filemaker.createPortal('portal1', 1, 1);
+        let portal1 = filemaker.createPortal('portal1', 1, 1);
 
-//         filemaker
-//             .find({
-//                 requests: [request],
-//                 sorts: [sort],
-//                 offset: 2,
-//                 range: 10,
-//                 portals: [portal1]
-//             })
-//             .then(records => {
-//                 console.log(records);
-//                 expect(records).toBeDefined();
-//                 done();
-//             })
-//     });
+        await filemaker
+            .find({
+                requests: [request],
+                sorts: [sort],
+                offset: 2,
+                limit: 10,
+                portals: [portal1]
+            })
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { data } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(data).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
 
-//     it('should set a global(s) parameter', (done) => {
+    it('should set a global(s) parameter', async () => {
 
-//         let global1 = filemaker.createGlobal('global1', 'aValue');
-//         let global2 = filemaker.createGlobal('global2', 'anotherValue');
+        let global1 = filemaker.createGlobal('db::global1', 'aValue');
+        let global2 = filemaker.createGlobal('db::global2', 'anotherValue');
 
-//         filemaker
-//             .setGlobals([global1, global2])
-//             .then(isSet => {
-//                 expect(isSet).toEqual(true);
-//                 done();
-//             })
-//     });
-// });
+        await filemaker
+            .setGlobals([global1, global2])
+            .then(body => {
+                let { messages } = body;
+                let { response } = body;
+                let { data } = response;
+                let { code } = messages[0];
+                expect(code).toBe('0');
+                expect(data).toBeDefined();
+                //console.log(JSON.stringify(body, null, 3));
+            })
+    });
+});

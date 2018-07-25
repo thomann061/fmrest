@@ -7,14 +7,15 @@
     "lib": "lib"
   },
   "dependencies": {
-    "requestify": "^0.2.5"
+    "requestify": "^0.2.5",
+    "base-64": "0.1.0"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
-    "gulp-jasmine": "^2.4.2",
-    "gulp-jsdoc3": "^1.0.1",
+    "gulp-jasmine": "^4.0.0",
+    "gulp-jsdoc3": "^2.0.0",
     "gulp-jshint": "^2.1.0",
-    "jasmine": "^2.99.0",
+    "jasmine": "^3.1.0",
     "jshint": "^2.9.5"
   },
   "scripts": {
