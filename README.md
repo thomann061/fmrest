@@ -51,9 +51,12 @@ const filemaker = new Fmrest({
     user: "admin",
     password: "admin",
     host: "http://localhost",
-    solution: "db",
-    layout: "db"
+    database: "db" // ,
+//  layout: "db"  // optional at time of login
 });
+
+// Layout is not required for authentication anymore
+filemaker.setLayout('db'); // need to supply layout eventually
 ```
 
 ### Authentication
@@ -260,6 +263,7 @@ filemaker
 
 ## TODO
 
+- [x] Layout is optional at login
 - [ ] Add support for OAuth
 - [ ] Add support for Container Data
 - [ ] Global fields are still not working (help :)
