@@ -7,8 +7,9 @@
     "lib": "lib"
   },
   "dependencies": {
-    "requestify": "^0.2.5",
-    "base-64": "0.1.0"
+    "base-64": "0.1.0",
+    "request": "^2.87.0",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "gulp": "^3.9.1",
