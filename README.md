@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/thomann061/fmrest.svg?branch=master)](https://travis-ci.org/thomann061/fmrest)
 [![npm version](https://badge.fury.io/js/fmrest.svg)](https://badge.fury.io/js/fmrest)
 
-A javascript wrapper for Filemaker's Data API (REST API)
+A Node.js wrapper for Filemaker's Data API (REST API)
 
 This API was developed for Filemaker 17.
 
@@ -127,8 +127,8 @@ filemaker
 
 // Get Record w/ Portal Data
 let portal1 = filemaker
-    .createPortal('portal1', 1, 2); // (portal name, offset, range)
-                                    // offset and range are optional
+    .createPortal('portal1', 1, 2); // (portal name, offset, limit)
+                                    // offset and limit are optional
 let portal2 = filemaker
     .createPortal('portal2', 1, 2);
 
@@ -147,7 +147,7 @@ filemaker
     })
 
 
-// Get All Records w/ Portal Data, sorting, offset and range
+// Get All Records w/ Portal Data, sorting, offset and limit
 let portal1 = filemaker
     .createPortal('portal1');
 
@@ -157,13 +157,26 @@ let sort1 = filemaker
 filemaker
     .getAllRecords({
         offset: 1,
-        range: 10,
+        limit: 10,
         sorts: [sort1],
         portals: [portal1]
     })
     .then(body => {
         console.log(JSON.stringify(body, null, 3));
     });
+
+// Upload Files to Container Fields
+const containerFieldName = 'container';
+const containerFieldRep = '1';
+const recordId = '3';
+const fs = require('fs');
+const file = fs.createReadStream(`${__dirname}/filemaker_logo_vert.png`);
+
+filemaker
+    .uploadFile({ file, recordId, containerFieldName, containerFieldRep })
+    .then(body => {
+        console.log(JSON.stringify(body, null, 3));
+    })
 ```
 
 ### Finds
@@ -236,7 +249,7 @@ filemaker
         requests: [request],
         sorts: [sort],      // optional
         offset: 2,          // optional
-        range: 10,          // optional
+        limit: 10,          // optional
         portals: [portal1]  // optional
     })
     .then(body => {
@@ -264,8 +277,9 @@ filemaker
 ## TODO
 
 - [x] Layout is optional at login
+- [ ] Add optional fm data source to login body
 - [ ] Add support for OAuth
-- [ ] Add support for Container Data
+- [x] Add support for Container Data
 - [ ] Global fields are still not working (help :)
 - [ ] Add script query parameters to Records
 
