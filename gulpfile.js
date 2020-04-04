@@ -9,15 +9,15 @@ gulp.task('test', () =>
         .pipe(jasmine())
 );
 
-gulp.task('lint', function() {
+gulp.task('lint', () => {
   return gulp.src('./lib/*.js')
     .pipe(jshint())
     .pipe(jshint.reporter('default'));
 });
 
-gulp.task('doc', function (cb) {
+gulp.task('doc', (cb) => {
     gulp.src(['README.md', './lib/**/*.js'], {read: false})
         .pipe(jsdoc(cb));
 });
 
-gulp.task('default', ['lint', 'test']);
+gulp.task('default', gulp.series(['lint', 'test']));

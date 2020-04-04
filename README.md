@@ -4,7 +4,7 @@
 
 A Node.js wrapper for Filemaker's Data API (REST API)
 
-This API was developed for Filemaker 17.
+This API was tested with Filemaker 18 Data Api and using Filemaker ID login services.
 
 Development is in progress.
 
@@ -14,7 +14,9 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You will need to install Filemaker Server 17 and enable the Data API.  There is plenty of online documentation describing how to do this.  To do my testing I modified some rules to not require https on Microsoft's IIS server.  I have also supplied my testing file - db.fmp12.
+You will need Filemaker Server 18 and enable the Data API.  There is plenty of online documentation describing how to do this.
+
+I have also supplied my testing file - db.fmp12.
 
 ## Running the tests
 
@@ -31,7 +33,7 @@ Run only tests:
 jasmine
 ```
 
-Note: fmrestSpec.js is commented out; uncomment it when you have a Filemaker Server 17 setup.
+Note: fmrestSpec.js is commented out; uncomment it to test in your own environment
 
 ## API Code Samples
 
@@ -47,11 +49,13 @@ const Fmrest = require('fmrest');
 
 
 // Set configuration
+// Specify fmid for use with your Filemaker ID
 const filemaker = new Fmrest({
-    user: "admin",
-    password: "admin",
-    host: "http://localhost",
-    database: "db" // ,
+    user: "user",
+    password: "pass",
+    host: "host",
+    database: "db",
+    auth: "fmid", // basic or fmid
 //  layout: "db"  // optional at time of login
 });
 
@@ -279,15 +283,14 @@ filemaker
 - [x] Layout is optional at login
 - [ ] Add optional fm data source to login body
 - [ ] Add support for OAuth
+- [x] Add support for filemaker id login
 - [x] Add support for Container Data
 - [ ] Global fields are still not working (help :)
 - [ ] Add script query parameters to Records
 
 ## Resources
 
-[Filemaker Data 17 API Guide](https://fmhelp.filemaker.com/docs/17/en/dataapi/index.html)
-
-[Better API Guide here if you have Filemaker Server 17 installed](https://localhost/fmi/data/apidoc/)
+[Filemaker Data 18 API Guide](https://fmhelp.filemaker.com/docs/18/en/dataapi/)
 
 ## Contributing / Code of Conduct
 

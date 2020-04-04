@@ -1,17 +1,18 @@
-// /**
-//  * Commented out so travis ci build passes
-//  * Use these tests in your own environment.
-//  */
+/**
+ * Commented out so travis ci build passes
+ * Use these tests in your own environment.
+ */
 
 // const Fmrest = require('../lib/fmrest.js');
 
 // describe('fmrest', () => {
 
 //     const filemaker = new Fmrest({
-//         user: "admin",
-//         password: "admin",
-//         host: "http://localhost",
-//         database: "db" // ,
+//         user: "user",
+//         password: "pass",
+//         host: "host",
+//         database: "db",
+//         auth: "fmid", // basic or fmid
 //     //  layout: "db"  // optional at time of login
 //     });
 
@@ -84,7 +85,7 @@
 
 //     it('should delete a record', async () => {
 
-//         await filemaker.deleteRecord(54)
+//         await filemaker.deleteRecord(1)
 //             .then(body => {
 //                 let { messages } = body;
 //                 let { code } = messages[0];
@@ -330,7 +331,7 @@
 //                 let { code } = messages[0];
 //                 expect(code).toBe('0');
 //                 expect(data).toBeDefined();
-//                 //console.log(JSON.stringify(body, null, 3));
+//                 console.log(JSON.stringify(body, null, 3));
 //             })
 //     });
 
