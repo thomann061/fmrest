@@ -1,8 +1,8 @@
 {
   "name": "fmrest",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "A javascript wrapper for Filemaker's Data API (REST API)",
-  "main": "gulpfile.js",
+  "main": "lib/fmrest.js",
   "directories": {
     "lib": "lib"
   },
