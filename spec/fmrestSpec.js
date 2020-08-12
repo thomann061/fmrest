@@ -1,7 +1,7 @@
-/**
- * Commented out so travis ci build passes
- * Use these tests in your own environment.
- */
+// /**
+//  * Commented out so travis ci build passes
+//  * Use these tests in your own environment.
+//  */
 
 // const Fmrest = require('../lib/fmrest.js');
 
@@ -349,7 +349,6 @@
 //                 let { code } = messages[0];
 //                 expect(code).toBe('0');
 //                 expect(response).toBeDefined();
-//                 //console.log(JSON.stringify(body, null, 3));
 //             })
 //     });
 // });
