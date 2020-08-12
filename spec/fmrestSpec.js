@@ -1,18 +1,18 @@
-/**
- * Commented out so travis ci build passes
- * Use these tests in your own environment.
- */
+// /**
+//  * Commented out so travis ci build passes
+//  * Use these tests in your own environment.
+//  */
 
 // const Fmrest = require('../lib/fmrest.js');
 
 // describe('fmrest', () => {
 
 //     const filemaker = new Fmrest({
-//         user: "user",
-//         password: "pass",
-//         host: "host",
+//         user: "admin",
+//         password: "admin",
+//         host: "https://sagebis.sagetechs.com",
 //         database: "db",
-//         auth: "fmid", // basic or fmid
+//         auth: "basic", // basic or fmid
 //     //  layout: "db"  // optional at time of login
 //     });
 
@@ -327,10 +327,8 @@
 //             .then(body => {
 //                 let { messages } = body;
 //                 let { response } = body;
-//                 let { data } = response;
 //                 let { code } = messages[0];
 //                 expect(code).toBe('0');
-//                 expect(data).toBeDefined();
 //                 console.log(JSON.stringify(body, null, 3));
 //             })
 //     });
@@ -351,7 +349,6 @@
 //                 let { code } = messages[0];
 //                 expect(code).toBe('0');
 //                 expect(response).toBeDefined();
-//                 //console.log(JSON.stringify(body, null, 3));
 //             })
 //     });
 // });
